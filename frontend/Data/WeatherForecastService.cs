@@ -1,3 +1,4 @@
+using shared.Models;
 using System.Net.Http;
 using System.Net.Http.Json;
 using Microsoft.Extensions.Configuration;
@@ -9,11 +10,6 @@ namespace frontend.Data
     {
         private readonly IConfiguration _configuration;
         private readonly ILogger<WeatherForecastService> _logger;
-
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
 
         public WeatherForecastService(IConfiguration configuration, ILogger<WeatherForecastService> logger)
         {
@@ -27,7 +23,7 @@ namespace frontend.Data
             {
                 Date = startDate.AddDays(index),
                 TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+                Summary = WeatherForecastSummaries.SummaryType[Random.Shared.Next(WeatherForecastSummaries.SummaryType.Length)]
             }).ToArray());
         }
 

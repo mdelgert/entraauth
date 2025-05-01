@@ -1,7 +1,7 @@
+using shared.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Abstractions;
-using frontend.Models;
 
 namespace frontend.Pages.ToDoPages
 {
@@ -15,7 +15,7 @@ namespace frontend.Pages.ToDoPages
         MicrosoftIdentityConsentAndConditionalAccessHandler ConsentHandler { get; set; }
 
         [Inject]
-        NavigationManager Navigation { get; set; }
+        NavigationManager? Navigation { get; set; }
         
         const string ServiceName = "DownstreamApi";
         protected IEnumerable<ToDo> toDoList = new List<ToDo>();

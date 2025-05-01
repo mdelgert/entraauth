@@ -1,4 +1,5 @@
-﻿namespace backend.Models;
+﻿/*
+namespace backend.Models;
 
 public class ToDo
 {
@@ -6,3 +7,4 @@ public class ToDo
     public Guid Owner { get; set; }
     public string Description { get; set; } = string.Empty;
 }
+*/

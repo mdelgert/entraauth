@@ -1,3 +1,4 @@
+/*
 namespace backend
 {
     public class WeatherForecast
@@ -11,3 +12,4 @@ namespace backend
         public string? Summary { get; set; }
     }
 }
+*/

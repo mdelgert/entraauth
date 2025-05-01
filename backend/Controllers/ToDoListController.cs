@@ -1,4 +1,4 @@
-﻿using backend.Models;
+﻿using shared.Models;
 using backend.Context;
 using System;
 using System.Linq;

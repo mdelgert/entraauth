@@ -1,4 +1,4 @@
-﻿using backend.Models;
+﻿using shared.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Context;
