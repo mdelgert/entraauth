@@ -3,11 +3,20 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Identity.Abstractions;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Identity.Web;
+using frontend.Pages.ToDoPages;
 
 namespace frontend.Data
 {
     public class WeatherForecastService
     {
+        const string ServiceName = "DownstreamApi";
+        [Inject] IDownstreamApi DownstreamApi { get; set; }
+        [Inject] MicrosoftIdentityConsentAndConditionalAccessHandler ConsentHandler { get; set; }
+        [Inject] NavigationManager Navigation { get; set; }
+
         private readonly IConfiguration _configuration;
         private readonly ILogger<WeatherForecastService> _logger;
 
@@ -46,7 +55,12 @@ namespace frontend.Data
 
             using var httpClient = new HttpClient();
             var baseUrl = _configuration["BackendApi"];
+
             var response = await httpClient.GetFromJsonAsync<WeatherForecast[]>($"{baseUrl}/WeatherForecastEntra");
+
+            //var weatherForecastList = (await DownstreamApi.GetForUserAsync<IEnumerable<ToDo>>(
+            //        ServiceName,
+            //        options => options.RelativePath = "/WeatherForecastEntra"))!;
 
             _logger.LogInformation("WeatherForecast API call completed.");
 
