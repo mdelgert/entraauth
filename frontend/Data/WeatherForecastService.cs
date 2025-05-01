@@ -37,7 +37,20 @@ namespace frontend.Data
 
             using var httpClient = new HttpClient();
             var baseUrl = _configuration["BackendApi"];
-            var response = await httpClient.GetFromJsonAsync<WeatherForecast[]>($"{baseUrl}WeatherForecast");
+            var response = await httpClient.GetFromJsonAsync<WeatherForecast[]>($"{baseUrl}/WeatherForecast");
+
+            _logger.LogInformation("WeatherForecast API call completed.");
+
+            return response ?? Array.Empty<WeatherForecast>();
+        }
+
+        public async Task<WeatherForecast[]> GetForecastFromEntraAsync()
+        {
+            _logger.LogInformation("Calling WeatherForecast API endpoint.");
+
+            using var httpClient = new HttpClient();
+            var baseUrl = _configuration["BackendApi"];
+            var response = await httpClient.GetFromJsonAsync<WeatherForecast[]>($"{baseUrl}/WeatherForecastEntra");
 
             _logger.LogInformation("WeatherForecast API call completed.");
 
