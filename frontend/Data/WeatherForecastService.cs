@@ -1,29 +1,33 @@
-using shared.Models;
-using System.Net.Http;
-using System.Net.Http.Json;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Abstractions;
-using Microsoft.AspNetCore.Components;
 using Microsoft.Identity.Web;
-using frontend.Pages.ToDoPages;
+using shared.Models;
 
 namespace frontend.Data
 {
     public class WeatherForecastService
     {
-        const string ServiceName = "DownstreamApi";
-        [Inject] IDownstreamApi DownstreamApi { get; set; }
-        [Inject] MicrosoftIdentityConsentAndConditionalAccessHandler ConsentHandler { get; set; }
-        [Inject] NavigationManager Navigation { get; set; }
-
+        private const string ServiceName = "DownstreamApi";
+        private readonly IDownstreamApi _downstreamApi;
+        private readonly MicrosoftIdentityConsentAndConditionalAccessHandler _consentHandler;
+        private readonly NavigationManager _navigationManager;
         private readonly IConfiguration _configuration;
         private readonly ILogger<WeatherForecastService> _logger;
 
-        public WeatherForecastService(IConfiguration configuration, ILogger<WeatherForecastService> logger)
+        public WeatherForecastService(
+            IDownstreamApi downstreamApi,
+            MicrosoftIdentityConsentAndConditionalAccessHandler consentHandler,
+            NavigationManager navigationManager,
+            IConfiguration configuration,
+            ILogger<WeatherForecastService> logger)
         {
-            _configuration = configuration;
-            _logger = logger;
+            _downstreamApi = downstreamApi ?? throw new ArgumentNullException(nameof(downstreamApi));
+            _consentHandler = consentHandler ?? throw new ArgumentNullException(nameof(consentHandler));
+            _navigationManager = navigationManager ?? throw new ArgumentNullException(nameof(navigationManager));
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public Task<WeatherForecast[]> GetForecastAsync(DateOnly startDate)
@@ -38,33 +42,45 @@ namespace frontend.Data
 
         public async Task<WeatherForecast[]> GetForecastFromApiAsync()
         {
-            _logger.LogInformation("Calling WeatherForecast API endpoint.");
+            try
+            {
+                _logger.LogInformation("Calling WeatherForecast API endpoint.");
+                var baseUrl = _configuration["BackendApi"] ?? throw new InvalidOperationException("BackendApi configuration is missing.");
 
-            using var httpClient = new HttpClient();
-            var baseUrl = _configuration["BackendApi"];
-            var response = await httpClient.GetFromJsonAsync<WeatherForecast[]>($"{baseUrl}/WeatherForecast");
+                var forecasts = await _downstreamApi.GetForUserAsync<WeatherForecast[]>(
+                    ServiceName,
+                    options => options.RelativePath = "/WeatherForecast");
 
-            _logger.LogInformation("WeatherForecast API call completed.");
-
-            return response ?? Array.Empty<WeatherForecast>();
+                _logger.LogInformation("WeatherForecast API call completed.");
+                return forecasts ?? Array.Empty<WeatherForecast>();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error calling WeatherForecast API.");
+                _consentHandler.HandleException(ex);
+                return Array.Empty<WeatherForecast>();
+            }
         }
 
         public async Task<WeatherForecast[]> GetForecastFromEntraAsync()
         {
-            _logger.LogInformation("Calling WeatherForecast API endpoint.");
+            try
+            {
+                _logger.LogInformation("Calling WeatherForecastEntra API endpoint.");
 
-            using var httpClient = new HttpClient();
-            var baseUrl = _configuration["BackendApi"];
+                var forecasts = await _downstreamApi.GetForUserAsync<WeatherForecast[]>(
+                    ServiceName,
+                    options => options.RelativePath = "/WeatherForecastEntra");
 
-            var response = await httpClient.GetFromJsonAsync<WeatherForecast[]>($"{baseUrl}/WeatherForecastEntra");
-
-            //var weatherForecastList = (await DownstreamApi.GetForUserAsync<IEnumerable<ToDo>>(
-            //        ServiceName,
-            //        options => options.RelativePath = "/WeatherForecastEntra"))!;
-
-            _logger.LogInformation("WeatherForecast API call completed.");
-
-            return response ?? Array.Empty<WeatherForecast>();
+                _logger.LogInformation("WeatherForecastEntra API call completed.");
+                return forecasts ?? Array.Empty<WeatherForecast>();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error calling WeatherForecastEntra API.");
+                _consentHandler.HandleException(ex);
+                return Array.Empty<WeatherForecast>();
+            }
         }
     }
 }

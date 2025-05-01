@@ -55,7 +55,8 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddServerSideBlazor().AddMicrosoftIdentityConsentHandler();
 
-builder.Services.AddSingleton<WeatherForecastService>();
+//builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddScoped<WeatherForecastService>();
 
 var app = builder.Build();
 
