@@ -1,0 +1,11 @@
+﻿<CascadingAuthenticationState>
+    <AuthorizeView>
+        <Authorized>
+            Hello, @context.User.Identity!.Name!
+            <a href="MicrosoftIdentity/Account/SignOut">Logout</a>
+        </Authorized>
+        <NotAuthorized>
+            <a href="MicrosoftIdentity/Account/SignIn">Login</a>
+        </NotAuthorized>
+    </AuthorizeView>
+</CascadingAuthenticationState>
