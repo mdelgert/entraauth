@@ -1,9 +1,11 @@
 ﻿@page "/"
+@inject IConfiguration Configuration
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<h5>Entra Auth Example</h5>
 
-Welcome to your new app.
+<p>Environment: @Configuration["ASPNETCORE_ENVIRONMENT"]</p>
+<p>Backend API: @Configuration["BackendApi"]</p>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+@* <SurveyPrompt Title="How is Blazor working for you?" /> *@
