@@ -1,3 +1,5 @@
+using AspNetCore.Swagger.Themes;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -13,7 +15,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(ModernStyle.Dark);
 }
 
 app.UseHttpsRedirection();
