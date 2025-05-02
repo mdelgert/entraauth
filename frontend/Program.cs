@@ -41,12 +41,12 @@ else
     builder.Services.AddDistributedMemoryCache(); // NOT RECOMMENDED FOR PRODUCTION! Use a persistent cache like Redis
 }
 
-builder.Services.AddControllersWithViews().AddMicrosoftIdentityUI();
-
 builder.Services.AddAuthorization(options =>
 {
     //options.FallbackPolicy = options.DefaultPolicy; // By default, all incoming requests will be authorized according to the default policy
 });
+
+builder.Services.AddControllersWithViews().AddMicrosoftIdentityUI();
 // ########################################### Entra Auth End ###########################################
 
 // Add services to the container.
