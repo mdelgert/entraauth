@@ -9,6 +9,8 @@
 
 <p>Environment: @Configuration["ASPNETCORE_ENVIRONMENT"]</p>
 
+<p>Redis: @Configuration["ConnectionStrings:Redis"]</p>
+
 <p>Backend API: @GetSwaggerUrl()</p>
 
 <a href="@GetSwaggerUrl()/swagger" target="_blank">Swagger</a>
@@ -21,7 +23,8 @@
     private string GetSwaggerUrl()
     {
         // Use SwaggerUrl environment variable if it exists, otherwise fall back to DownstreamApi:BaseUrl
-        var swaggerUrl = Environment.GetEnvironmentVariable("SwaggerUrl");
+        //var swaggerUrl = Environment.GetEnvironmentVariable("SwaggerUrl");
+        var swaggerUrl = Configuration["SwaggerUrl"];
 
         if (!string.IsNullOrEmpty(swaggerUrl))
         {

@@ -13,16 +13,5 @@ services:
     image: redis:latest
     volumes:
       - redis-data:/data
-  # sqlserver:
-  #   image: mcr.microsoft.com/mssql/server:2022-latest
-  #   volumes:
-  #     - sqlserver-data:/var/opt/mssql
-  #     - ./database:/usr/src/mssql-init
-  # cosmosdb:
-  #   image: mcr.microsoft.com/cosmosdb/linux
-  #   volumes:
-  #     - cosmosdb-data:/data
 volumes:
   redis-data:
-  # sqlserver-data:
-  # cosmosdb-data:
