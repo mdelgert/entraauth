@@ -26,11 +26,11 @@ builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
     .AddDownstreamApi("DownstreamApi", builder.Configuration.GetSection("DownstreamApi"))
     .AddDistributedTokenCaches();
 
-if(builder.Configuration.GetConnectionString("ConnectionStrings:Redis") != null)
+if(builder.Configuration.GetConnectionString("Redis") != null)
 {
     builder.Services.AddStackExchangeRedisCache(options =>
     {
-        options.Configuration = builder.Configuration.GetConnectionString("ConnectionStrings:Redis");
+        options.Configuration = builder.Configuration.GetConnectionString("Redis");
         options.InstanceName = "RedisDemos_"; // unique to the app
     });
     
@@ -40,21 +40,6 @@ else
 {
     builder.Services.AddDistributedMemoryCache(); // NOT RECOMMENDED FOR PRODUCTION! Use a persistent cache like Redis
 }
-
-// if (builder.Configuration.GetValue<bool>("UseRedis"))
-// {
-//     builder.Services.AddStackExchangeRedisCache(options =>
-//     {
-//         options.Configuration = builder.Configuration.GetConnectionString("Redis");
-//         options.InstanceName = "RedisDemos_"; // unique to the app
-//     });
-
-//     builder.Services.Configure<MsalDistributedTokenCacheAdapterOptions>(builder.Configuration.GetSection("RedisOptions"));
-// }
-// else
-// {
-//     builder.Services.AddDistributedMemoryCache(); // NOT RECOMMENDED FOR PRODUCTION! Use a persistent cache like Redis
-// }
 
 builder.Services.AddControllersWithViews().AddMicrosoftIdentityUI();
 
