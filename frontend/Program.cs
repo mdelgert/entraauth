@@ -46,7 +46,7 @@ builder.Services.AddControllersWithViews().AddMicrosoftIdentityUI();
 
 builder.Services.AddAuthorization(options =>
 {
-    //options.FallbackPolicy = options.DefaultPolicy; // By default, all incoming requests will be authorized according to the default policy
+    options.FallbackPolicy = options.DefaultPolicy; // By default, all incoming requests will be authorized according to the default policy
 });
 // ########################################### Entra Auth End ###########################################
 
