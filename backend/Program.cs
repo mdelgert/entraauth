@@ -85,7 +85,12 @@ if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Test"))
 }
 
 app.UseCors("default");
-app.UseHttpsRedirection();
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection(); // Disable HTTPS redirection for development in docker container to support http
+}
+
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();

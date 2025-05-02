@@ -5,7 +5,25 @@
 
 <h5>Entra Auth Example</h5>
 
-<p>Environment: @Configuration["ASPNETCORE_ENVIRONMENT"]</p>
-<p>Backend API: @Configuration["BackendApi"]</p>
+<SurveyPrompt Title="How is Blazor working for you?" />
 
-@* <SurveyPrompt Title="How is Blazor working for you?" /> *@
+<p>Environment: @Configuration["ASPNETCORE_ENVIRONMENT"]</p>
+
+<p>Backend API: @GetSwaggerUrl()</p>
+
+<a href="@GetSwaggerUrl()/swagger" target="_blank">Swagger</a>
+
+@code {
+    private string GetSwaggerUrl()
+    {
+        // Use SwaggerUrl environment variable if it exists, otherwise fall back to DownstreamApi:BaseUrl
+        var swaggerUrl = Environment.GetEnvironmentVariable("SwaggerUrl");
+
+        if (!string.IsNullOrEmpty(swaggerUrl))
+        {
+            return swaggerUrl;
+        }
+        
+        return Configuration["DownstreamApi:BaseUrl"] ?? "https://localhost:5002";
+    }
+}
