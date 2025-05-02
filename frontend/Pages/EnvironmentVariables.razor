@@ -1,0 +1,28 @@
+@page "/environment-variables"
+@using System.Collections
+
+<PageTitle>Environment Variables</PageTitle>
+
+<h1>Environment Variables</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (DictionaryEntry envVar in Environment.GetEnvironmentVariables())
+        {
+            <tr>
+                <td>@envVar.Key</td>
+                <td>@envVar.Value</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    // No additional code-behind logic is required for this page.
+}
