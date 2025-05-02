@@ -4,10 +4,14 @@ services:
     build:
       context: .
       dockerfile: frontend/Dockerfile
-
   backend:
     image: ${DOCKER_REGISTRY-}backend
     build:
       context: .
       dockerfile: backend/Dockerfile
-
+  redis:
+    image: redis:latest
+    volumes:
+      - redis-data:/data
+volumes:
+  redis-data:
