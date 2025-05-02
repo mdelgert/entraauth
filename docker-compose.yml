@@ -9,10 +9,10 @@ services:
     build:
       context: .
       dockerfile: backend/Dockerfile
-  # redis:
-  #   image: redis:latest
-  #   volumes:
-  #     - redis-data:/data
+  redis:
+    image: redis:latest
+    volumes:
+      - redis-data:/data
   # sqlserver:
   #   image: mcr.microsoft.com/mssql/server:2022-latest
   #   volumes:
@@ -22,7 +22,7 @@ services:
   #   image: mcr.microsoft.com/cosmosdb/linux
   #   volumes:
   #     - cosmosdb-data:/data
-# volumes:
-  # redis-data:
+volumes:
+  redis-data:
   # sqlserver-data:
   # cosmosdb-data:
