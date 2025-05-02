@@ -9,10 +9,15 @@ services:
     build:
       context: .
       dockerfile: backend/Dockerfile
+#   cosmosdb:
+#     image: mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator
+#     volumes:
+#       - cosmosdb-data:/data
   redis:
     image: redis:latest
     volumes:
       - redis-data:/data
 volumes:
+  # cosmosdb-data:
   redis-data:
   
