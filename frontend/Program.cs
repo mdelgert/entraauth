@@ -41,9 +41,16 @@ else
     builder.Services.AddDistributedMemoryCache(); // NOT RECOMMENDED FOR PRODUCTION! Use a persistent cache like Redis
 }
 
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.FallbackPolicy = options.DefaultPolicy; // By default, all incoming requests will be authorized according to the default policy
+//});
+
 builder.Services.AddAuthorization(options =>
 {
-    //options.FallbackPolicy = options.DefaultPolicy; // By default, all incoming requests will be authorized according to the default policy
+    // Optional: Add a policy for TestGroup if using policy-based authorization
+    options.AddPolicy("DemoAdmin", policy =>
+        policy.RequireClaim("groups", builder.Configuration["AdminGroup:Id"]));
 });
 
 builder.Services.AddControllersWithViews().AddMicrosoftIdentityUI();
