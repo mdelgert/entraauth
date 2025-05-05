@@ -1,0 +1,48 @@
+@page "/user-roles"
+@attribute [Authorize]
+@using Microsoft.AspNetCore.Components.Authorization
+
+<h3>User Roles</h3>
+
+@if (roles == null)
+{
+    <p>Loading roles...</p>
+}
+else if (!roles.Any())
+{
+    <p>No roles found for the user.</p>
+}
+else
+{
+    <ul>
+        @foreach (var role in roles)
+        {
+            <li>@role</li>
+        }
+    </ul>
+}
+
+@code {
+    private List<string>? roles;
+
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthenticationStateTask { get; set; } = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateTask;
+        var user = authState.User;
+
+        if (user.Identity != null && user.Identity.IsAuthenticated)
+        {
+            roles = user.Claims
+                .Where(c => c.Type == "roles")
+                .Select(c => c.Value)
+                .ToList();
+        }
+        else
+        {
+            roles = new List<string>();
+        }
+    }
+}

@@ -1,5 +1,7 @@
 ﻿@page "/secure"
 @attribute [Authorize]
+@* @attribute [Authorize(Policy = "RequireBlazorAdmins")] *@
+@* [AuthorizeForScopes(ScopeKeySection = "DownstreamApis:MicrosoftGraph:Scopes")] *@
 @inject ILogger<Counter> logger
 
 <PageTitle>Secure</PageTitle>
