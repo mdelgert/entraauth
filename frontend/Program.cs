@@ -50,7 +50,7 @@ builder.Services.AddAuthorization(options =>
 {
     // Optional: Add a policy for TestGroup if using policy-based authorization
     options.AddPolicy("DemoAdmin", policy =>
-        policy.RequireClaim("groups", builder.Configuration["AdminGroup:Id"]));
+        policy.RequireClaim("groups", builder.Configuration["AdminGroupId"]));
 });
 
 builder.Services.AddControllersWithViews().AddMicrosoftIdentityUI();
