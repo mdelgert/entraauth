@@ -7,7 +7,7 @@ using Microsoft.Identity.Web.Resource;
 namespace backend.Controllers
 {
     // Does not require scope or app just verifies a use in entra
-    [Authorize]
+    //[Authorize]
 
     // Scope only
     //[RequiredScopeOrAppPermission(RequiredScopesConfigurationKey = "AzureAD:Scopes:Read")]

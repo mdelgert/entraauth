@@ -9,6 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Identity.Web;
 using Microsoft.Extensions.Logging;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using backend.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,6 +49,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 };
             }, options => { builder.Configuration.Bind("AzureAd", options); });
 
+// Configure authorization policy requiring authentication for all controllers
+builder.Services.AddAuthorization(options =>
+{
+    // Default policy that just requires authentication
+    options.DefaultPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+});
+
 // ########################################### Entra Auth End ###########################################
 
 // Add services to the container.
@@ -54,7 +66,19 @@ builder.Services.AddDbContext<ToDoContext>(options =>
     options.UseInMemoryDatabase("ToDos");
 });
 
-builder.Services.AddControllers();
+// Apply the default authorization policy and scope filter to all controllers
+builder.Services.AddControllers(options =>
+{
+    // Add authentication filter
+    var policy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+    options.Filters.Add(new AuthorizeFilter(policy));
+    
+    // Add our custom scope authorization filter
+    options.Filters.Add(new ScopeAuthorizationFilter(builder.Configuration));
+});
+
 builder.Services.AddEndpointsApiExplorer(); // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddSwaggerGen();
 
