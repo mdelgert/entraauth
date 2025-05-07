@@ -1,0 +1,47 @@
+﻿@page "/user-claims"
+@attribute [Authorize]
+
+<div class="text-left">
+    <CascadingAuthenticationState>
+        <AuthorizeView>
+            <Authorized>
+                @if (@context.User.Identity is not null && @context.User.Identity.IsAuthenticated)
+                {
+                    <p>You are signed in! Below are the claims in your ID token. For more information, visit: <a href="https://learn.microsoft.com/azure/active-directory/develop/id-tokens">Microsoft identity platform ID tokens</a></p>
+
+                    <table>
+                        <tbody>
+                            @foreach (var item in @context.User.Claims)
+                            {
+                                <tr>
+                                    <td>@item.Type</td>
+                                    <td>@item.Value</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </Authorized>
+        </AuthorizeView>
+    </CascadingAuthenticationState>
+    <br />
+    <p>Learn about <a href="https://learn.microsoft.com/azure/active-directory/develop/v2-overview">building web apps with Microsoft identity platform</a>.</p>
+</div>
+
+@code {
+
+}
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        text-align: justify;
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+        border-top: 1px solid #ddd;
+    }
+</style>

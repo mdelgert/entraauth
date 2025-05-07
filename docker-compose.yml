@@ -4,19 +4,19 @@ services:
     build:
       context: .
       dockerfile: frontend/Dockerfile
-  backend:
-    image: ${DOCKER_REGISTRY-}backend
-    build:
-      context: .
-      dockerfile: backend/Dockerfile
-  frontendapp:
-    image: ${DOCKER_REGISTRY-}frontendapp
-    build:
-      context: .
-      dockerfile: frontendapp/Dockerfile
-  redis:
-    image: redis:latest
-    volumes:
-      - redis-data:/data
-volumes:
-  redis-data:
+  # backend:
+  #   image: ${DOCKER_REGISTRY-}backend
+  #   build:
+  #     context: .
+  #     dockerfile: backend/Dockerfile
+  # frontendapp:
+  #   image: ${DOCKER_REGISTRY-}frontendapp
+  #   build:
+  #     context: .
+  #     dockerfile: frontendapp/Dockerfile
+  # redis:
+  #   image: redis:latest
+  #   volumes:
+  #     - redis-data:/data
+# volumes:
+#   redis-data:
