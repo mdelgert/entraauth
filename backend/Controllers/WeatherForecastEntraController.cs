@@ -50,6 +50,22 @@ namespace backend.Controllers
                 _logger.LogInformation($"WeatherForecastEntraController accessed by {HttpContext.User.Claims.First(c => c.Type == "preferred_username").Value}");
             }
 
+            if (HttpContext.User.Claims.Any(c => c.Type == "oid" || c.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier"))
+            {
+                var oidClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "oid") ??
+                               HttpContext.User.Claims.First(c => c.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier");
+                _logger.LogInformation($"User Object ID (OID): {oidClaim.Value}");
+            }
+            else
+            {
+                _logger.LogWarning("Object ID (OID) claim not found in the user claims");
+                // Log all available claims for debugging
+                foreach (var claim in HttpContext.User.Claims)
+                {
+                    _logger.LogInformation($"Claim Type: {claim.Type}, Value: {claim.Value}");
+                }
+            }
+
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
