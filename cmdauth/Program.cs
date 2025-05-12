@@ -88,6 +88,7 @@ var emailDoamain = configuration.GetValue<string>("EmailDomain");
 // Log email domain
 logger.LogInformation($"Email Domain: {emailDoamain}");
 
+/*
 var requestBody = new User
 {
     AccountEnabled = true,
@@ -95,6 +96,28 @@ var requestBody = new User
     MailNickname = "AdeleV",
     //UserPrincipalName = "AdeleV@contoso.com",
     UserPrincipalName = "AdeleV1@" + emailDoamain,
+    PasswordProfile = new PasswordProfile
+    {
+        ForceChangePasswordNextSignIn = true,
+        Password = "xWwvJ]6NMw+bWH-d",
+    },
+};
+*/
+
+var requestBody = new User
+{
+    AccountEnabled = true,
+    DisplayName = "Adele3 Vance",
+    MailNickname = "AdeleV",
+    Identities = new List<ObjectIdentity>()
+    {
+        new ObjectIdentity()
+        {
+            SignInType = "emailAddress",
+            Issuer = emailDoamain,
+            IssuerAssignedId = "AdeleV3@demo.com",
+        }
+    },
     PasswordProfile = new PasswordProfile
     {
         ForceChangePasswordNextSignIn = true,
