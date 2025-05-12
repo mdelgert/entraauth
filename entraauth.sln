@@ -13,7 +13,7 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "frontendapp", "frontendapp\frontendapp.csproj", "{1EB80B9C-5ADA-4E4D-B9FF-D31797DF86F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "entracmd", "entracmd\entracmd.csproj", "{A33B92E6-6BB4-44B0-BBCE-A55C55489075}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cmdauth", "cmdauth\cmdauth.csproj", "{3FBBE52C-A4E0-44F3-966E-0FF26FB27034}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{1EB80B9C-5ADA-4E4D-B9FF-D31797DF86F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EB80B9C-5ADA-4E4D-B9FF-D31797DF86F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EB80B9C-5ADA-4E4D-B9FF-D31797DF86F6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A33B92E6-6BB4-44B0-BBCE-A55C55489075}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A33B92E6-6BB4-44B0-BBCE-A55C55489075}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A33B92E6-6BB4-44B0-BBCE-A55C55489075}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A33B92E6-6BB4-44B0-BBCE-A55C55489075}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FBBE52C-A4E0-44F3-966E-0FF26FB27034}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FBBE52C-A4E0-44F3-966E-0FF26FB27034}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FBBE52C-A4E0-44F3-966E-0FF26FB27034}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FBBE52C-A4E0-44F3-966E-0FF26FB27034}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
