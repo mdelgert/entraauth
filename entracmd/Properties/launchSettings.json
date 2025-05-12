@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "entracmd": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
