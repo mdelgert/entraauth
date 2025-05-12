@@ -1,6 +1,6 @@
 ﻿using Azure.Identity;
-using System.Linq;
 using Microsoft.Graph;
+using Microsoft.Graph.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -69,10 +69,41 @@ var options = new ClientSecretCredentialOptions
 };
 
 // https://learn.microsoft.com/dotnet/api/azure.identity.clientsecretcredential
-var clientSecretCredential = new ClientSecretCredential(
-    tenantId, clientId, clientSecret, options);
+var clientSecretCredential = new ClientSecretCredential(tenantId, clientId, clientSecret, options);
 
 var graphClient = new GraphServiceClient(clientSecretCredential, scopes);
+
+//var result = await graphClient.Users.GetAsync();
+
+//// Loop through all users and log them
+//foreach (var user in result.Value)
+//{
+//    logger.LogInformation($"User: {user.DisplayName} - {user.Id}");
+//}
+
+//https://learn.microsoft.com/en-us/graph/api/user-post-users?view=graph-rest-1.0&tabs=csharp
+
+var emailDoamain = configuration.GetValue<string>("EmailDomain");
+
+// Log email domain
+logger.LogInformation($"Email Domain: {emailDoamain}");
+
+var requestBody = new User
+{
+    AccountEnabled = true,
+    DisplayName = "Adele1 Vance",
+    MailNickname = "AdeleV",
+    //UserPrincipalName = "AdeleV@contoso.com",
+    UserPrincipalName = "AdeleV1@" + emailDoamain,
+    PasswordProfile = new PasswordProfile
+    {
+        ForceChangePasswordNextSignIn = true,
+        Password = "xWwvJ]6NMw+bWH-d",
+    },
+};
+
+// To initialize your graphClient, see https://learn.microsoft.com/en-us/graph/sdks/create-client?from=snippets&tabs=csharp
+var result = await graphClient.Users.PostAsync(requestBody);
 
 logger.LogInformation("End:");
 
