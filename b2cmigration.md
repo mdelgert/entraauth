@@ -9,3 +9,5 @@ https://medium.com/the-new-control-plane/using-azure-ad-b2c-custom-policies-with
 https://learn.microsoft.com/en-us/entra/external-id/customers/how-to-migrate-users
 
 https://github.com/azure-ad-b2c/samples/tree/master/policies/migrate-to-entra-external-id-for-customers
+
+https://learn.microsoft.com/en-us/entra/external-id/customers/how-to-enable-password-reset-customers
