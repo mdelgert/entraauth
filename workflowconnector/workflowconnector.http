@@ -1,0 +1,6 @@
+@workflowconnector_HostAddress = http://localhost:5275
+
+GET {{workflowconnector_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
