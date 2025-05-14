@@ -12,9 +12,9 @@ namespace workflowconnector.Controllers
     public class LoginController : ControllerBase
     {
         private readonly DbService _context;
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<LoginController> _logger;
 
-        public LoginController(DbService context, ILogger<WeatherForecastController> logger)
+        public LoginController(DbService context, ILogger<LoginController> logger)
         {
             _context = context;
             _logger = logger;
